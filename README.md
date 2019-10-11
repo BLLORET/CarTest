@@ -2,7 +2,8 @@
 
 Prototype of car simulation.
 
-Command Controllers: - Keyboard
+# Command Controllers: 
+                        - Keyboard
                         - Accelerate: UpArrow
                         - Braking: DownArrow
                         - Turn: Left and Right Arrow
