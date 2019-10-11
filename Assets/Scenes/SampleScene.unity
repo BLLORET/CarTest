@@ -4594,7 +4594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec77e94d10287bb448d80ac25c785ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllor: 2
+  controllor: 1
   txtSpeed: {fileID: 1887231133}
   backLights: {fileID: 1018892646}
   frontLeft: {fileID: 2036546525}
