@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class SwitchCamera : MonoBehaviour
 {
-    [SerializeField] private Camera fisrtPerson;
-    [SerializeField] private Camera thirdPerson;
+    [SerializeField] private Camera fisrtPerson = null;
+    [SerializeField] private Camera thirdPerson = null;
 
-    [SerializeField] private GameObject car;
+    [SerializeField] private GameObject car = null;
 
     private CarController carController;
 

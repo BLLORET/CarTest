@@ -21,10 +21,10 @@ public class CarController : MonoBehaviour
     [SerializeField] private WheelCollider backRight = null;
 
     // WheelsMesh
-    [SerializeField] private Transform transformFL;
-    [SerializeField] private Transform transformFR;
-    [SerializeField] private Transform transformBL;
-    [SerializeField] private Transform transformBR;
+    [SerializeField] private Transform transformFL = null;
+    [SerializeField] private Transform transformFR = null;
+    [SerializeField] private Transform transformBL = null;
+    [SerializeField] private Transform transformBR = null;
 
     [Header("Controls")]
     [SerializeField] private float torque = 0f;
