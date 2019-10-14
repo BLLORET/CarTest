@@ -65,7 +65,7 @@ public class CarController : MonoBehaviour
     void FixedUpdate()
     {
         // Around
-        MoteurSound();
+        EngineSound();
         DisplaySpeed();
         TurnLight();
         WheelRotation();
@@ -222,23 +222,25 @@ public class CarController : MonoBehaviour
         txtSpeed.text = (int) speed + " KM/H";
     }
 
+    /// <summary>
+    /// Set the backLight On or off.
+    /// </summary>
     private void TurnLight()
     {
-        if (isBraking || (forward < 0 && speed > 0.1))
-        {
-            backLights.SetActive(true);
-        }
-        else
-        {
-            backLights.SetActive(false);
-        }
+        backLights.SetActive(isBraking || (forward < 0 && speed > 0.1));
     }
 
-    private void MoteurSound()
+    /// <summary>
+    /// Fix the sound of the engine.
+    /// </summary>
+    private void EngineSound()
     {
         audioSource.pitch = speed / maxSpeed + 1f;
     }
 
+    /// <summary>
+    /// Get if the player choose to inverse the sens of direction of the car.
+    /// </summary>
     private void InverseForward()
     {
         if (((controllor == Controllor.Keyboard && Input.GetKeyDown(KeyCode.Space))
@@ -250,6 +252,15 @@ public class CarController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Get input about indicators.
+    /// This options are hold:
+    ///     - left indicator
+    ///     - right indicator
+    ///     - warnings.
+    ///     
+    /// This function set the boolean that indicate if the light is enabled.
+    /// </summary>
     private void GetIndicatorsInput()
     {
         // Enabled or disabled indicators.
