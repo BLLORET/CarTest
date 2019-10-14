@@ -40,10 +40,17 @@ public class CarController : MonoBehaviour
 
     private bool isBraking = false;
 
+    private bool leftLight = false;
+    private bool rightLight = false;
+
     private AudioSource audioSource;
 
     //Properties
     public Controllor Controller { get { return controllor; } }
+
+    public bool LeftLightActivated { get { return leftLight;  } }
+
+    public bool RightLightActivated { get { return rightLight; } }
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +70,7 @@ public class CarController : MonoBehaviour
         WheelRotation();
 
         // Input
+        GetIndicatorsInput();
         InverseForward();
         Acceleration();
         Deceleration();
@@ -169,8 +177,28 @@ public class CarController : MonoBehaviour
 
     private void Direction()
     {
-        frontLeft.steerAngle = Input.GetAxis("Horizontal") * wheelAngleMax;
-        frontRight.steerAngle = Input.GetAxis("Horizontal") * wheelAngleMax;
+        float axis = 0;
+        switch (controllor)
+        {
+            case Controllor.Keyboard:
+                axis = Input.GetAxis("Horizontal");
+                break;
+
+            case Controllor.WirelessController:
+                axis = Input.GetAxis("Horizontal");
+                break;
+            case Controllor.SteeringWheel:
+                axis = Input.GetAxis("Horizontal");
+                Debug.Log("axis: " + axis);
+                break;
+            default:
+                Debug.LogError("Enum not hold.");
+                break;
+        }
+
+        // Wheel Collider
+        frontLeft.steerAngle = axis * wheelAngleMax;
+        frontRight.steerAngle = axis * wheelAngleMax;
 
         // Mesh
 
@@ -218,6 +246,34 @@ public class CarController : MonoBehaviour
             && speed < 0.1)
         {
             forward *= -1f;
+        }
+    }
+
+    private void GetIndicatorsInput()
+    {
+        // Activate left indicator.
+        if ((controllor == Controllor.Keyboard && Input.GetKeyDown(KeyCode.E))
+            || (controllor == Controllor.WirelessController && Input.GetButtonDown("XBoxLB"))
+            || (controllor == Controllor.SteeringWheel && Input.GetButtonDown("SteeringWheelL2")))
+        {
+            // Disable right light if it is enable.
+            if (rightLight)
+            {
+                rightLight = false;
+            }
+            leftLight = !leftLight;
+        }
+        // Activate right indicator.
+        else if (controllor == Controllor.Keyboard && Input.GetKeyDown(KeyCode.R)
+            || (controllor == Controllor.WirelessController && Input.GetButtonDown("XBoxRB"))
+            || (controllor == Controllor.SteeringWheel && Input.GetButtonDown("SteeringWheelR2")))
+        {
+            // Disable left light if it is enable.
+            if (leftLight)
+            {
+                leftLight = false;
+            }
+            rightLight = !rightLight;
         }
     }
 }
