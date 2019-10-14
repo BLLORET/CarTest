@@ -42,6 +42,7 @@ public class CarController : MonoBehaviour
 
     private bool leftLight = false;
     private bool rightLight = false;
+    private bool warning = false;
 
     private AudioSource audioSource;
 
@@ -251,7 +252,7 @@ public class CarController : MonoBehaviour
 
     private void GetIndicatorsInput()
     {
-        // Activate left indicator.
+        // Enabled or disabled indicators.
         if ((controllor == Controllor.Keyboard && Input.GetKeyDown(KeyCode.E))
             || (controllor == Controllor.WirelessController && Input.GetButtonDown("XBoxLB"))
             || (controllor == Controllor.SteeringWheel && Input.GetButtonDown("SteeringWheelL2")))
@@ -263,7 +264,7 @@ public class CarController : MonoBehaviour
             }
             leftLight = !leftLight;
         }
-        // Activate right indicator.
+        // Enabled or disabled indicators.
         else if (controllor == Controllor.Keyboard && Input.GetKeyDown(KeyCode.R)
             || (controllor == Controllor.WirelessController && Input.GetButtonDown("XBoxRB"))
             || (controllor == Controllor.SteeringWheel && Input.GetButtonDown("SteeringWheelR2")))
@@ -274,6 +275,18 @@ public class CarController : MonoBehaviour
                 leftLight = false;
             }
             rightLight = !rightLight;
+        }
+        // Enabled or disabled warnings
+        else if (controllor == Controllor.Keyboard && Input.GetKeyDown(KeyCode.T)
+            || (controllor == Controllor.WirelessController && Input.GetButtonDown("XBoxB"))
+            || (controllor == Controllor.SteeringWheel && Input.GetButtonDown("SteeringWheelPS")))
+        {
+            warning = !warning;
+            // Try to disabled indicators before warnings.
+            rightLight = false;
+            leftLight = false;
+            leftLight = warning;
+            rightLight = warning;
         }
     }
 }
